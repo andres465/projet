@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails de l'Événement</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 50px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">{{ event.title }}</h1>
+        <p>{{ event.description }}</p>
+        <p>Début: {{ event.start_datetime.strftime('%d/%m/%Y %H:%M') }}</p>
+        <p>Fin: {{ event.end_datetime.strftime('%d/%m/%Y %H:%M') }}</p>
+        <p>Lieu: {{ event.location }}</p>
+        <p>Organisateur: {{ event.organizer }}</p>
+        <p>Tags: {{ event.tags }}</p>
+        <a href="{{ url_for('book_event', event_id=event.id) }}" class="btn btn-primary">Réserver</a>
+    </div>
+</body>
+</html>

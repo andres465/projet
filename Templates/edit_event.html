@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Éditer un Événement</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 50px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Éditer l'Événement "{{ event.title }}"</h1>
+        <form action="{{ url_for('edit_event', event_id=event.id) }}" method="POST">
+            <div class="form-group">
+                <label for="title">Titre</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ event.title }}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required>{{ event.description }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="start_datetime">Date et Heure de Début</label>
+                <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime" value="{{ event.start_datetime.strftime('%Y-%m-%dT%H:%M') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="end_datetime">Date et Heure de Fin</label>
+                <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime" value="{{ event.end_datetime.strftime('%Y-%m-%dT%H:%M') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Lieu</label>
+                <input type="text" class="form-control" id="location" name="location" value="{{ event.location }}">
+            </div>
+            <div class="form-group">
+                <label for="organizer">Organisateur</label>
+                <input type="text" class="form-control" id="organizer" name="organizer" value="{{ event.organizer }}">
+            </div>
+            <div class="form-group">
+                <label for="tags">Tags</label>
+                <input type="text" class="form-control" id="tags" name="tags" value="{{ event.tags }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </form>
+    </div>
+</body>
+</html>
