@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilisateur</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 50px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Profil Utilisateur</h1>
+        <div>
+            <p><strong>Nom d'utilisateur:</strong> {{ current_user.username }}</p>
+            <p><strong>Email:</strong> {{ current_user.email }}</p>
+            <p><strong>Nom complet:</strong> {{ current_user.full_name }}</p>
+            <p><strong>Date d'inscription:</strong> {{ current_user.date_registered.strftime('%d/%m/%Y') }}</p>
+        </div>
+        <hr>
+        <h3>Modifier le Profil</h3>
+        <form action="{{ url_for('edit_profile') }}" method="POST">
+            <div class="form-group">
+                <label for="full_name">Nom complet</label>
+                <input type="text" class="form-control" id="full_name" name="full_name" value="{{ current_user.full_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ current_user.email }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        </form>
+        <hr>
+        <h3>Mes Réservations</h3>
+        <ul>
+            {% for booking in current_user.bookings %}
+                <li>{{ booking.event.title }} - {{ booking.booking_time.strftime('%d/%m/%Y %H:%M') }}</li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <p><a href="{{ url_for('change_password') }}">Modifier le mot de passe</a></p>
+        <p><a href="{{ url_for('logout') }}">Déconnexion</a></p>
+    </div>
+</body>
+</html>
